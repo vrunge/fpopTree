@@ -1,3 +1,7 @@
-exportPattern("^[[:alpha:]]+")
-importFrom(Rcpp, evalCpp)
 useDynLib(fpopTree, .registration = TRUE)
+
+export(BinaryTree, gauss_binaryTree)
+
+importFrom(Rcpp, evalCpp)
+importFrom("stats", "rnorm", "rexp", "rpois", "rnbinom", "mad", "sd")
+importFrom("graphics", "plot", "segments")
