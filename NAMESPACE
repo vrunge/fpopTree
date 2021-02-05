@@ -1,6 +1,6 @@
 useDynLib(fpopTree, .registration = TRUE)
 
-export(BinaryTree, gauss_binaryTree)
+export(BinaryTree, gauss_binaryTree, tree_time)
 
 importFrom(Rcpp, evalCpp)
 importFrom("stats", "rnorm", "rexp", "rpois", "rnbinom", "mad", "sd")

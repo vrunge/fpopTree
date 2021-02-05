@@ -102,14 +102,31 @@ getLeaves <- function(l_tree)
   return(which(rowSums(do.call(rbind,l_tree)) == 0))
 }
 
-list_parents <- function(l_tree, level_vector)
+#' Generating the time structure of the tree
+#'
+#' @description Genarate the time structure of the tree from parents to children
+#' @param l_tree A tree encoded in a list describing the parent-to-child structure
+#' @return a list in which the position i gives a vector with couples (index, number of children to take in position i-1 in the same list)
+tree_time <- function(l_tree)
 {
-  parents <- NULL
-  childs <- list()
+  #build the hight vector = time structure
+  hight <- rep(1,length(l_tree))
   for(i in 1:length(l_tree))
   {
-    test <- l_tree[[i]] %in% level_vector
-
+    v <- unlist(l_tree[[i]])
+    hight[v] <- hight[v] + hight[i]
   }
+  hight <- max(hight) - hight + 1
 
+  #group the nodes parent to children
+  levels <- vector(mode = "list", length = max(hight))
+  for(i in 1:max(hight))
+  {
+    for(j in which(hight == i))
+    {
+      nb <- sum(l_tree[[j]] != 0)
+      levels[[i]] <- c(levels[[i]], j, nb)
+    }
+  }
+  return(levels)
 }
