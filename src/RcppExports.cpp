@@ -5,20 +5,24 @@
 
 using namespace Rcpp;
 
-// fonctionTest
-double fonctionTest(double n);
-RcppExport SEXP _fpopTree_fonctionTest(SEXP nSEXP) {
+// fpopTreeTransfer
+List fpopTreeTransfer(NumericVector vectData, List tree_t, std::string type, NumericVector vectWeight, bool testMode);
+RcppExport SEXP _fpopTree_fpopTreeTransfer(SEXP vectDataSEXP, SEXP tree_tSEXP, SEXP typeSEXP, SEXP vectWeightSEXP, SEXP testModeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< double >::type n(nSEXP);
-    rcpp_result_gen = Rcpp::wrap(fonctionTest(n));
+    Rcpp::traits::input_parameter< NumericVector >::type vectData(vectDataSEXP);
+    Rcpp::traits::input_parameter< List >::type tree_t(tree_tSEXP);
+    Rcpp::traits::input_parameter< std::string >::type type(typeSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type vectWeight(vectWeightSEXP);
+    Rcpp::traits::input_parameter< bool >::type testMode(testModeSEXP);
+    rcpp_result_gen = Rcpp::wrap(fpopTreeTransfer(vectData, tree_t, type, vectWeight, testMode));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_fpopTree_fonctionTest", (DL_FUNC) &_fpopTree_fonctionTest, 1},
+    {"_fpopTree_fpopTreeTransfer", (DL_FUNC) &_fpopTree_fpopTreeTransfer, 5},
     {NULL, NULL, 0}
 };
 

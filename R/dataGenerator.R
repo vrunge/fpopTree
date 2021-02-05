@@ -28,6 +28,36 @@ BinaryTree <- function(n)
 }
 
 
+
+#' Generating a random tree function
+#'
+#' @description Genarate a list encoding a random tree with n nodes and 1, 2 or 3 children
+#' @param n number of nodes in the tree
+#' @param proba probability to have 1, 2 or 3 children
+#' @return a list in which the element at index i is a vector containing the index/indices of the 1, 2 or 3 child nodes
+RandomTree <- function(n, proba = rep(1/3,3))
+{
+  if(n%%1 != 0){stop("n is not an integer")}
+  if(n < 2){stop("A tree with less than 2 nodes is not an interesting tree")}
+  if(!all(proba >= 0)){stop("Probabilities must be non negative")}
+  if(sum(proba) == 0){stop("Probabilities can not be all zero")}
+  k <- 1
+  i <- 1
+  l_tree <- list()
+  while(k < n)
+  {
+      nb <- sample(1:3, size = 1, prob = proba)
+      l_tree[[i]] <- (k+1):(k+nb)
+      k <- k + nb
+      i <- i + 1
+  }
+  l_tree[[i-1]] <- (l_tree[[i-1]])[l_tree[[i-1]] <= n]
+  for(j in i:n){ l_tree[[j]] <- 0}
+  return(l_tree)
+}
+
+
+
 # internal function
 getSubTree <- function(l_tree, roots, i)
 {
